@@ -1,8 +1,8 @@
 package com.example.movieapp.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class MovieModel(
-    @SerializedName("resultCount") var resultCount: Int? = null,
-    @SerializedName("results") var results: ArrayList<MovieResultModel> = arrayListOf()
+    @Json(name = "resultCount") var resultCount: Int? = null,
+    @Json(name = "results") var results: ArrayList<MovieResultModel> = arrayListOf()
 )
