@@ -1,8 +1,10 @@
 package com.example.movieapp.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-data class MovieResultModel(
+@JsonClass(generateAdapter = true)
+data class ContentResultModel(
     @Json(name = "wrapperType") var wrapperType: String? = null,
     @Json(name = "kind") var kind: String? = null,
     @Json(name = "artistId") var artistId: Int? = null,
