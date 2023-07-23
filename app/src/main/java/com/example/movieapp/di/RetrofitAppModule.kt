@@ -1,5 +1,6 @@
 package com.example.movieapp.di
 
+import com.example.movieapp.BuildConfig
 import com.example.movieapp.service.RetrofitContentAPI
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -35,7 +36,7 @@ object RetrofitAppModule {
     @Provides
     fun provideOKHTTP(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
             .build()
     }
 
