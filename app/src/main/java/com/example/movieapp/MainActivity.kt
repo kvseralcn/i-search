@@ -1,11 +1,24 @@
 package com.example.movieapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import com.example.movieapp.databinding.ActivityMainBinding
+import com.example.movieapp.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.btnTest.setOnClickListener {
+            mainViewModel.loadContents()
+        }
+
+        // TODO: observe
     }
 }
