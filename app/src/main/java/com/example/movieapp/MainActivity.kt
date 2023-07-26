@@ -15,10 +15,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btnTest.setOnClickListener {
-            mainViewModel.loadContents()
-        }
+        //binding.btnTest.setOnClickListener {
+        //    sendSearchRequest()
+        //}
 
-        // TODO: observe
+        //  mainViewModel.data.observe(this) {
+        //      //it.results
+        //  }
     }
+
+    // private fun sendSearchRequest() {
+    //     val input = "michael jackson" // TODO: edit text
+    //     val param = input.replace(" ", "+") // TODO: extension olara yazılabilir. String.getURLEncoded v.s
+    //     mainViewModel.loadContents(param)
+    // }
 }

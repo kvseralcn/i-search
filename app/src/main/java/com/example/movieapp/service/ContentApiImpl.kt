@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ContentApiImpl @Inject constructor(private val retrofitContentApi: RetrofitContentAPI) :
     ContentApi {
 
-    override fun fetchContents(): Flow<ContentModelDto> = flow {
-        emit(retrofitContentApi.fetchContent().toDto())
+    override fun fetchContents(param: String): Flow<ContentModelDto> = flow {
+        emit(retrofitContentApi.fetchContent(param).toDto())
     }
 }
