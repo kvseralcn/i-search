@@ -4,5 +4,5 @@ import com.example.movieapp.model.ContentModelDto
 import kotlinx.coroutines.flow.Flow
 
 interface ContentRepository {
-    fun getContent(): Flow<ContentModelDto>
+    fun getContent(param: String): Flow<ContentModelDto>
 }

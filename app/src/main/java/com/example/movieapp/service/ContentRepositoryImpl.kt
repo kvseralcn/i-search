@@ -10,7 +10,7 @@ class ContentRepositoryImpl @Inject constructor(
     private val contentAPI: ContentApi
 ) : ContentRepository {
 
-    override fun getContent(): Flow<ContentModelDto> =
-        contentAPI.fetchContents()
+    override fun getContent(param: String): Flow<ContentModelDto> =
+        contentAPI.fetchContents(param)
             .flowOn(Dispatchers.IO)
 }

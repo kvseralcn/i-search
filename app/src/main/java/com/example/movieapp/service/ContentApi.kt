@@ -4,5 +4,5 @@ import com.example.movieapp.model.ContentModelDto
 import kotlinx.coroutines.flow.Flow
 
 interface ContentApi {
-    fun fetchContents(): Flow<ContentModelDto>
+    fun fetchContents(param: String): Flow<ContentModelDto>
 }
