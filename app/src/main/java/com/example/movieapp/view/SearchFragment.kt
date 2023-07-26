@@ -32,14 +32,14 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        binding.recyclerView.layoutManager =
+        binding.fragmentSearchRvSearch.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         searchFragmentViewModel.data.observe(viewLifecycleOwner) {
             val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
                 musicPlayer.playMusic(clickedItem.previewUrl)
             }
-            binding.recyclerView.adapter = searchFragmentAdapter
+            binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter
         }
         return binding.root
     }

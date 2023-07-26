@@ -16,22 +16,21 @@ import javax.inject.Inject
 class SearchFragmentViewModel @Inject constructor(private val contentRepository: ContentRepository) :
     ViewModel() {
 
+    companion object {
+        const val TAG = "SearchFragmentViewModel"
+    }
+
     private val _data = MutableLiveData<ContentModelDto>()
     val data: LiveData<ContentModelDto> get() = _data
-
-    init {
-        //loadContents(param)
-    }
 
     fun loadContents(param: String) {
         viewModelScope.launch {
             contentRepository.getContent(param)
                 .catch {
-                    Log.e("xxxx", it.toString())
+                    Log.e(TAG, it.toString())
                 }
                 .collect { contents ->
-                    Log.e("xxxx", contents.toString())
-
+                    Log.d(TAG, contents.toString())
                     _data.postValue(contents)
                 }
         }
