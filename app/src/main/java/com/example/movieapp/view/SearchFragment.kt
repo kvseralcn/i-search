@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.adapter.SearchAdapter
 import com.example.movieapp.databinding.FragmentSearchBinding
+import com.example.movieapp.extension.getURLEncoded
 import com.example.movieapp.util.MusicPlayer
 import com.example.movieapp.viewmodel.SearchFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,8 +52,7 @@ class SearchFragment : Fragment() {
 
     private fun sendSearchRequest() {
         val input = "michael jackson" // TODO: edit text
-        val param =
-            input.replace(" ", "+") // TODO: extension olara yazılabilir. String.getURLEncoded v.s
+        val param = input.getURLEncoded()
         searchFragmentViewModel.loadContents(param)
     }
 
