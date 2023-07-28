@@ -1,6 +1,6 @@
-package com.example.movieapp.service
+package com.example.movieapp.core.service
 
-import com.example.movieapp.model.ContentModel
+import com.example.movieapp.data.ContentModel
 import retrofit2.http.GET
 import retrofit2.http.Query
 

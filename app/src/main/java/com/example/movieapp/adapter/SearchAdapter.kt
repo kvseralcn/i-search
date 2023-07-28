@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.movieapp.databinding.SearchListItemBinding
-import com.example.movieapp.model.ContentResultModel
+import com.example.movieapp.data.ContentResultModel
 
 class SearchAdapter constructor(
     private val searchList: List<ContentResultModel>,

@@ -1,7 +1,7 @@
-package com.example.movieapp.di
+package com.example.movieapp.core.di
 
 import com.example.movieapp.BuildConfig
-import com.example.movieapp.service.RetrofitContentAPI
+import com.example.movieapp.core.service.RetrofitContentAPI
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

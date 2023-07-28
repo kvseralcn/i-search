@@ -1,4 +1,4 @@
-package com.example.movieapp.view
+package com.example.movieapp.ui.search.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,32 +11,28 @@ import com.example.movieapp.adapter.SearchAdapter
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.extension.getURLEncoded
 import com.example.movieapp.util.MusicPlayer
-import com.example.movieapp.viewmodel.SearchFragmentViewModel
+import com.example.movieapp.ui.search.domain.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
-    private val searchFragmentViewModel: SearchFragmentViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
     private lateinit var binding: FragmentSearchBinding
 
     @Inject
     lateinit var musicPlayer: MusicPlayer
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         binding.fragmentSearchRvSearch.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        searchFragmentViewModel.data.observe(viewLifecycleOwner) {
+        searchViewModel.data.observe(viewLifecycleOwner) {
             val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
                 musicPlayer.playMusic(clickedItem.previewUrl)
             }
@@ -53,7 +49,7 @@ class SearchFragment : Fragment() {
     private fun sendSearchRequest() {
         val input = "michael jackson" // TODO: edit text
         val param = input.getURLEncoded()
-        searchFragmentViewModel.loadContents(param)
+        searchViewModel.loadContents(param)
     }
 
 
