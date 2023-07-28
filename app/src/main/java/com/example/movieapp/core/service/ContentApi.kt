@@ -1,6 +1,6 @@
-package com.example.movieapp.service
+package com.example.movieapp.core.service
 
-import com.example.movieapp.model.ContentModelDto
+import com.example.movieapp.data.ContentModelDto
 import kotlinx.coroutines.flow.Flow
 
 interface ContentApi {

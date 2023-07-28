@@ -1,9 +1,9 @@
-package com.example.movieapp.di
+package com.example.movieapp.core.di
 
-import com.example.movieapp.service.ContentApi
-import com.example.movieapp.service.ContentApiImpl
-import com.example.movieapp.service.ContentRepository
-import com.example.movieapp.service.ContentRepositoryImpl
+import com.example.movieapp.core.service.ContentApi
+import com.example.movieapp.core.service.ContentApiImpl
+import com.example.movieapp.core.service.ContentRepository
+import com.example.movieapp.core.service.ContentRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

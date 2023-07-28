@@ -1,7 +1,7 @@
-package com.example.movieapp.service
+package com.example.movieapp.core.service
 
-import com.example.movieapp.model.ContentModelDto
-import com.example.movieapp.model.toDto
+import com.example.movieapp.data.ContentModelDto
+import com.example.movieapp.data.toDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
