@@ -1,11 +1,15 @@
-package com.example.movieapp.view
+package com.example.movieapp.view.searchbar
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.movieapp.R
 import com.example.movieapp.databinding.SearchBarBinding
+
 
 class SearchBar @JvmOverloads constructor(
     context: Context,
@@ -14,7 +18,8 @@ class SearchBar @JvmOverloads constructor(
 ) : ConstraintLayout(
     context, attributeSet, defStyleAttr
 ) {
-    var binding: SearchBarBinding
+    private var binding: SearchBarBinding
+    var searchBarListener: SearchBarListener? = null
 
     init {
         binding = SearchBarBinding.inflate(LayoutInflater.from(context), this, true)
@@ -26,7 +31,8 @@ class SearchBar @JvmOverloads constructor(
             )
             try {
                 if (attributes.hasValue(R.styleable.SearchBar_searchHint)) {
-                    val searchHintResId = attributes.getResourceId(R.styleable.SearchBar_searchHint,0)
+                    val searchHintResId =
+                        attributes.getResourceId(R.styleable.SearchBar_searchHint, 0)
                     val searchHint = attributes.getString(R.styleable.SearchBar_searchHint)
                     binding.searchBarTvHint.hint = searchHint
                 }
@@ -35,5 +41,19 @@ class SearchBar @JvmOverloads constructor(
             }
         }
 
+        binding.searchBarTvHint.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchBarListener?.onSearchClick(getInputText())
+                val imm =
+                    v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+                return@OnEditorActionListener true
+            }
+            false
+        })
+    }
+
+    private fun getInputText(): String {
+        return binding.searchBarTvHint.text.toString()
     }
 }

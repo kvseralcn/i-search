@@ -5,30 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@drawable/search_bar_shape"
-    android:padding="16dp"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/searchBar_ivSearch"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:src="@drawable/baseline_search_24"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-
+        android:imeOptions="actionSearch"
+        android:inputType="text"
         android:id="@+id/searchBar_tvHint"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchBar_ivSearch"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchBar_ivSearch"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"
         tools:hint="Type here" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

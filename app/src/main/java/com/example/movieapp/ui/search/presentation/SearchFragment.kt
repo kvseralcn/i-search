@@ -10,10 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.adapter.SearchAdapter
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.extension.getURLEncoded
-import com.example.movieapp.util.MusicPlayer
 import com.example.movieapp.ui.search.domain.SearchViewModel
+import com.example.movieapp.util.MusicPlayer
+import com.example.movieapp.view.searchbar.SearchBarListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
@@ -43,14 +45,15 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sendSearchRequest()
+        binding.fragmentSearchSbSearch.searchBarListener = object : SearchBarListener {
+            override fun onSearchClick(searchInput: String) {
+                sendSearchRequest(searchInput)
+            }
+        }
     }
 
-    private fun sendSearchRequest() {
-        val input = "michael jackson" // TODO: edit text
-        val param = input.getURLEncoded()
+    private fun sendSearchRequest(searchInput: String) {
+        val param = searchInput.getURLEncoded()
         searchViewModel.loadContents(param)
     }
-
-
 }
