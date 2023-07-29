@@ -7,7 +7,7 @@
     android:padding="16dp"
     tools:context=".ui.search.presentation.SearchFragment">
 
-    <com.example.movieapp.view.SearchBar
+    <com.example.movieapp.view.searchbar.SearchBar
         android:id="@+id/fragmentSearch_sbSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
