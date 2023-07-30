@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,11 +36,19 @@ class SearchFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         searchViewModel.data.observe(viewLifecycleOwner) {
-            val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
-                musicPlayer.playMusic(clickedItem.previewUrl)
+            if (it.results.isEmpty()) {
+                binding.fragmentSearchTvNotFound.isVisible = true
+                binding.fragmentSearchRvSearch.isVisible = false
+            } else {
+                binding.fragmentSearchTvNotFound.isVisible = false
+                val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
+                    musicPlayer.playMusic(clickedItem.previewUrl)
+                }
+                binding.fragmentSearchRvSearch.isVisible = true
+                binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter
             }
-            binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter
         }
+        //TODO progress
         return binding.root
     }
 
