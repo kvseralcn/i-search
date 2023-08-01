@@ -25,6 +25,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragmentSearch_rvSearch"
         android:layout_width="match_parent"

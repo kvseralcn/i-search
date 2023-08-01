@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.movieapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,5 +36,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    fun showProgress() {
+        binding.activityMainLlProgress.isVisible = true
+    }
+
+    fun hideProgress() {
+        binding.activityMainLlProgress.isVisible = false
     }
 }
