@@ -52,7 +52,13 @@ class SearchFragment : Fragment() {
                 } else {
                     binding.fragmentSearchTvNotFound.isVisible = false
                     val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
-                        musicPlayer.playMusic(clickedItem.previewUrl)
+                        // musicPlayer.playMusic(clickedItem.previewUrl)
+                        // musicPlayer.pauseMusic()
+                        if (musicPlayer.isPlaying()) {
+                            musicPlayer.pauseMusic()
+                        } else {
+                            musicPlayer.playMusic(clickedItem.previewUrl)
+                        }
                     }
                     binding.fragmentSearchRvSearch.isVisible = true
                     binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter

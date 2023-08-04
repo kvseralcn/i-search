@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="10dp"
     app:cardElevation="6dp">
 
@@ -29,9 +29,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                tools:text="Item"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Item" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,20 +45,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                tools:text="Item"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="Item" />
 
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/searchListItem_playerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Button
-                android:id="@+id/searchListItem_playButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/play_button_text" />
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/searchListItem_playButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/progressColor"
+                    android:onClick="onButtonClick"
+                    android:src="@drawable/baseline_play_arrow_24" />
+
+                <ImageButton
+                    android:id="@+id/searchListItem_replayButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/progressColor"
+                    android:onClick="onButtonClick"
+                    android:src="@drawable/baseline_replay_24" />
+            </LinearLayout>
 
         </LinearLayout>
 
