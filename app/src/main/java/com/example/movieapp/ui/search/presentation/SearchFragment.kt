@@ -8,9 +8,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movieapp.adapter.MusicCategoryAdapter
 import com.example.movieapp.adapter.SearchAdapter
 import com.example.movieapp.core.MainActivity
 import com.example.movieapp.databinding.FragmentSearchBinding
+import com.example.movieapp.extension.extractUniqueGenreNames
 import com.example.movieapp.extension.getURLEncoded
 import com.example.movieapp.ui.search.domain.SearchViewModel
 import com.example.movieapp.util.MusicPlayer
@@ -18,13 +20,12 @@ import com.example.movieapp.view.searchbar.SearchBarListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
+    private lateinit var searchFragmentAdapter: SearchAdapter
     private val searchViewModel: SearchViewModel by viewModels()
     private lateinit var binding: FragmentSearchBinding
 
@@ -40,33 +41,48 @@ class SearchFragment : Fragment() {
 
         binding.fragmentSearchRvSearch.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.fragmentSearchRvCategory.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
 
         searchViewModel.data.observe(viewLifecycleOwner) {
-            coroutineScope.launch {
-                (activity as MainActivity).showProgress()
-                delay(1000)
-                if (it.results.isEmpty()) {
-                    binding.fragmentSearchTvNotFound.isVisible = true
-                    binding.fragmentSearchRvSearch.isVisible = false
-                } else {
-                    binding.fragmentSearchTvNotFound.isVisible = false
-                    val searchFragmentAdapter = SearchAdapter(it.results) { clickedItem ->
-                        // musicPlayer.playMusic(clickedItem.previewUrl)
-                        // musicPlayer.pauseMusic()
-                        if (musicPlayer.isPlaying()) {
-                            musicPlayer.pauseMusic()
-                        } else {
-                            musicPlayer.playMusic(clickedItem.previewUrl)
-                        }
-                    }
-                    binding.fragmentSearchRvSearch.isVisible = true
-                    binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter
+            (activity as MainActivity).hideProgress()
+
+            if (it.results.isEmpty()) {
+                binding.fragmentSearchTvNotFound.isVisible = true
+                binding.fragmentSearchRvSearch.isVisible = false
+            } else {
+                binding.fragmentSearchTvNotFound.isVisible = false
+
+                val categoryAdapter = MusicCategoryAdapter(it.results.extractUniqueGenreNames()) {
                 }
-                (activity as MainActivity).hideProgress()
+                binding.fragmentSearchRvCategory.adapter = categoryAdapter
+
+                searchFragmentAdapter = SearchAdapter(it.results, onReplayClick = {
+                    musicPlayer.replayMusic()
+                })
+                { clickedItem, position ->
+                    // musicPlayer.playMusic(clickedItem.previewUrl)
+                    // musicPlayer.pauseMusic()
+                    if (musicPlayer.isPlaying()) {
+                        musicPlayer.pauseMusic()
+                    } else {
+                        musicPlayer.playMusic(clickedItem.previewUrl)
+                    }
+                    searchFragmentAdapter.notifyItemChanged(position)
+                }
+                binding.fragmentSearchRvSearch.isVisible = true
+                binding.fragmentSearchRvSearch.adapter = searchFragmentAdapter
             }
+            (activity as MainActivity).hideProgress()
         }
         //TODO empty state component haline getir show fnk nunu 2 overload seklinde yaz birinde string id alacak digeri string alacak
+
+        //  val musicCategories: List<ContentResultModel> = MusicCategoryAdapter()
+        //  val musicCategoryAdapter = MusicCategoryAdapter(musicCategories) { clickedItem ->
+        //  }
+        //  binding.fragmentSearchRvCategory.adapter = musicCategoryAdapter
+
 
         return binding.root
     }
@@ -81,6 +97,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun sendSearchRequest(searchInput: String) {
+        (activity as MainActivity).showProgress()
         val param = searchInput.getURLEncoded()
         searchViewModel.loadContents(param)
     }

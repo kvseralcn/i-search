@@ -9,12 +9,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.movieapp.R
 import com.example.movieapp.data.ContentResultModel
 import com.example.movieapp.databinding.SearchListItemBinding
-import com.example.movieapp.util.MusicPlayer
 
 class SearchAdapter constructor(
     private val searchList: List<ContentResultModel>,
-    private val musicPlayer: MusicPlayer = MusicPlayer(),
-    private val onItemClick: (ContentResultModel) -> Unit
+    private val onReplayClick: () -> Unit,
+    private val onItemClick: (ContentResultModel, Int) -> Unit
 ) :
     RecyclerView.Adapter<SearchAdapter.PageHolder>() {
 
@@ -43,40 +42,23 @@ class SearchAdapter constructor(
         holder.binding.searchListItemTvCollectionName.text =
             "${contentResult.trackName} - ${contentResult.collectionName}"
 
+        holder.binding.searchListItemPlayButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                context,
+                if (isPlaying) R.drawable.baseline_pause_24 else R.drawable.baseline_play_arrow_24
+            )
+        )
+
         holder.binding.searchListItemPlayButton.setOnClickListener {
             isPlaying = !isPlaying
-
-
-            if (musicPlayer.isPlaying() && musicPlayer.getCurrentUrl() == contentResult.previewUrl) {
-                //onItemClick(contentResult)
-                musicPlayer.pauseMusic()
-                holder.binding.searchListItemPlayButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.baseline_play_arrow_24
-                    )
-                )
-
-            } else {
-                //onItemClick(contentResult)
-                musicPlayer.playMusic(contentResult.previewUrl)
-                holder.binding.searchListItemPlayButton.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        context,
-                        R.drawable.baseline_pause_24
-                    )
-                )
-            }
+            onItemClick(contentResult, position)
+            //TODO müzik bittiğinde buton iconunu "baseline_play_arrow_24" iconuna çevir tekrar
         }
 
+        holder.binding.searchListItemReplayButton.alpha = if (isPlaying) 1f else 0.25f
+        holder.binding.searchListItemReplayButton.isEnabled = isPlaying
         holder.binding.searchListItemReplayButton.setOnClickListener {
-            musicPlayer.replayMusic()
-            holder.binding.searchListItemPlayButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context,
-                    R.drawable.baseline_pause_24
-                )
-            )
+            onReplayClick()
         }
     }
 
