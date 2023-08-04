@@ -47,7 +47,6 @@ class MusicPlayer @Inject constructor() : OnPreparedListener, OnErrorListener {
         }
     }
 
-
     override fun onPrepared(mp: MediaPlayer?) {
         mp?.start()
         isPlaying = true
