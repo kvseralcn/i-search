@@ -11,6 +11,9 @@ import javax.inject.Singleton
 @Singleton
 class MusicPlayer @Inject constructor() : OnPreparedListener, OnErrorListener {
     private val mediaPlayer = MediaPlayer()
+    private var isPlaying: Boolean = false
+    private var currentPlayingUrl: String? = null
+    private var isPrepared: Boolean = false
 
     companion object {
         const val TAG = "MusicPlayer"
@@ -30,21 +33,50 @@ class MusicPlayer @Inject constructor() : OnPreparedListener, OnErrorListener {
             Log.e(TAG, "URL is empty.")
             return
         }
-
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(url)
-        mediaPlayer.setOnPreparedListener(this)
-        mediaPlayer.setOnErrorListener(this)
-        mediaPlayer.prepareAsync()
+        if (url == currentPlayingUrl && isPrepared) {
+            mediaPlayer.start()
+            isPlaying = true
+        } else {
+            currentPlayingUrl = url
+            isPrepared = false
+            mediaPlayer.reset()
+            mediaPlayer.setDataSource(url)
+            mediaPlayer.setOnPreparedListener(this)
+            mediaPlayer.setOnErrorListener(this)
+            mediaPlayer.prepareAsync()
+        }
     }
+
 
     override fun onPrepared(mp: MediaPlayer?) {
         mp?.start()
-        Log.d(TAG, "MusicPlayer started.")
+        isPlaying = true
+        isPrepared = true
+    }
+
+    fun getCurrentUrl(): String? {
+        return currentPlayingUrl
     }
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
         Log.e(TAG, "Error code: $what, Extra: $extra")
         return true
+    }
+
+    fun pauseMusic() {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+            isPlaying = false
+        }
+    }
+
+    fun replayMusic() {
+        mediaPlayer.seekTo(0)
+        mediaPlayer.start()
+        Log.d(TAG, "MusicPlayer replayed.")
+    }
+
+    fun isPlaying(): Boolean {
+        return mediaPlayer.isPlaying
     }
 }
