@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:background="@drawable/search_bar_shape"
+    android:background="@color/darkGrayColor"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:padding="16dp">
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:textColor="@color/white"
         android:id="@+id/searchBar_tvHint"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,6 +27,7 @@
         android:background="@null"
         android:imeOptions="actionSearch"
         android:inputType="text"
+        android:textColorHint="@color/softGrayColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBar_ivSearch"

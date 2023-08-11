@@ -55,6 +55,10 @@ class SearchBar @JvmOverloads constructor(
         })
     }
 
+    fun setText(text: String) {
+        binding.searchBarTvHint.setText(text)
+    }
+
     private fun getInputText(): String {
         return binding.searchBarTvHint.text.toString()
     }

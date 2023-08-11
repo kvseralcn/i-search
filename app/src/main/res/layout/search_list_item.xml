@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardElevation="6dp">
+    app:cardElevation="6dp"
+    android:backgroundTint="@color/darkGrayColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,10 +23,11 @@
             <ImageView
                 android:id="@+id/searchListItem_ivCover"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp" />
+                android:layout_height="75dp" />
 
             <TextView
                 android:id="@+id/searchListItem_tvArtistName"
+                android:textColor="@color/grayColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -41,6 +43,7 @@
             android:padding="5dp">
 
             <TextView
+                android:textColor="@color/grayColor"
                 android:id="@+id/searchListItem_tvCollectionName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,6 +53,7 @@
                 tools:text="Item" />
 
             <com.google.android.exoplayer2.ui.PlayerView
+                android:backgroundTint="@color/darkGrayColor"
                 android:id="@+id/searchListItem_playerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -63,7 +67,7 @@
                     android:id="@+id/searchListItem_playButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/progressColor"
+                    android:backgroundTint="@color/redColor"
                     android:onClick="onButtonClick"
                     android:src="@drawable/baseline_play_arrow_24" />
 
@@ -71,7 +75,7 @@
                     android:id="@+id/searchListItem_replayButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/progressColor"
+                    android:backgroundTint="@color/redColor"
                     android:onClick="onButtonClick"
                     android:src="@drawable/baseline_replay_24" />
             </LinearLayout>

@@ -34,7 +34,7 @@
         <ProgressBar
             android:indeterminate="true"
             android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/progressColor"
+            android:indeterminateTint="@color/grayColor"
             android:id="@+id/activityMain_pbProgress"
             android:layout_width="124dp"
             android:layout_height="124dp"

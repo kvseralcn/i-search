@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,13 +12,14 @@ import com.example.movieapp.data.ContentResultModel
 import com.example.movieapp.databinding.SearchListItemBinding
 
 class SearchAdapter constructor(
-    private val searchList: List<ContentResultModel>,
+    private var searchList: List<ContentResultModel>,
     private val onReplayClick: () -> Unit,
     private val onItemClick: (ContentResultModel, Int) -> Unit
 ) :
     RecyclerView.Adapter<SearchAdapter.PageHolder>() {
 
     private var isPlaying: Boolean = false
+    private val allItemsList = searchList
 
     class PageHolder(val binding: SearchListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -39,9 +41,11 @@ class SearchAdapter constructor(
             .into(holder.binding.searchListItemIvCover)
 
         holder.binding.searchListItemTvArtistName.text = contentResult.artistName.toString()
-        holder.binding.searchListItemTvCollectionName.text =
-            "${contentResult.trackName} - ${contentResult.collectionName}"
-
+        holder.binding.searchListItemTvCollectionName.text = holder.itemView.context.getString(
+            R.string.search_item,
+            contentResult.trackName,
+            contentResult.collectionName
+        )
         holder.binding.searchListItemPlayButton.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
@@ -52,7 +56,6 @@ class SearchAdapter constructor(
         holder.binding.searchListItemPlayButton.setOnClickListener {
             isPlaying = !isPlaying
             onItemClick(contentResult, position)
-            //TODO müzik bittiğinde buton iconunu "baseline_play_arrow_24" iconuna çevir tekrar
         }
 
         holder.binding.searchListItemReplayButton.alpha = if (isPlaying) 1f else 0.25f
@@ -63,4 +66,14 @@ class SearchAdapter constructor(
     }
 
     override fun getItemCount() = searchList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filter(category: String) {
+        searchList = allItemsList.filter { it.primaryGenreName == category }
+        notifyDataSetChanged()
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 }
