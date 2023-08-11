@@ -82,13 +82,7 @@ class SearchFragment : Fragment() {
         }
 
         val suggestionsAdapter = ContentSuggestionsAdapter(
-            listOf(
-                "michael jackson",
-                "billie eilish",
-                "kanye west",
-                "jennifer lopez",
-                "adele"
-            )
+            searchViewModel.suggestionList
         ) { suggestion ->
             binding.fragmentSearchSbSearch.setText(suggestion)
             sendSearchRequest(suggestion)
