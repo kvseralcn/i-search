@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.data.ContentModelDto
 import com.example.movieapp.core.service.ContentRepository
+import com.example.movieapp.data.ContentModelDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -22,6 +22,13 @@ class SearchViewModel @Inject constructor(private val contentRepository: Content
 
     private val _data = MutableLiveData<ContentModelDto>()
     val data: LiveData<ContentModelDto> get() = _data
+    val suggestionList = listOf(
+        "michael jackson",
+        "billie eilish",
+        "kanye west",
+        "jennifer lopez",
+        "adele"
+    )
 
     fun loadContents(param: String) {
         viewModelScope.launch {
