@@ -55,9 +55,18 @@ class SearchFragment : Fragment() {
             } else {
                 binding.fragmentSearchTvNotFound.isVisible = false
 
+                val list = mutableListOf<String>()
+                list.add(0, "All")
+                val uniqueGenreNames = it.results.extractUniqueGenreNames()
+                list.addAll(uniqueGenreNames)
+
                 val categoryAdapter =
-                    ContentCategoryAdapter(it.results.extractUniqueGenreNames()) { category ->
-                        searchAdapter.filter(category)
+                    ContentCategoryAdapter(list) { category ->
+                        if (list.getOrNull(0) == category) {
+                            searchAdapter.filter(null)
+                        } else {
+                            searchAdapter.filter(category)
+                        }
                     }
                 binding.fragmentSearchRvCategory.adapter = categoryAdapter
 
