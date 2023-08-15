@@ -68,8 +68,14 @@ class SearchAdapter constructor(
     override fun getItemCount() = searchList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filter(category: String) {
-        searchList = allItemsList.filter { it.primaryGenreName == category }
+    fun filter(category: String?) {
+        searchList = if (category == null) {
+            allItemsList
+        } else {
+            allItemsList.filter {
+                it.primaryGenreName == category
+            }
+        }
         notifyDataSetChanged()
     }
 

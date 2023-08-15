@@ -6,7 +6,7 @@
 
     <TextView
         android:textColor="@color/textColor"
-        android:background="@drawable/category_background"
+        android:background="@drawable/category_unselected_background"
         android:padding="8dp"
         android:id="@+id/contentCategoryListItem_tvContentCategory"
         android:layout_width="wrap_content"
