@@ -41,11 +41,13 @@ class SearchAdapter constructor(
             .into(holder.binding.searchListItemIvCover)
 
         holder.binding.searchListItemTvArtistName.text = contentResult.artistName.toString()
-        holder.binding.searchListItemTvCollectionName.text = holder.itemView.context.getString(
-            R.string.search_item,
-            contentResult.trackName,
-            contentResult.collectionName
-        )
+        val sb = StringBuilder()
+        contentResult.trackName?.let { sb.append(it) }
+        contentResult.collectionName?.let {
+            if (sb.isNotEmpty()) sb.append(" - ")
+            sb.append(it)
+        }
+        holder.binding.searchListItemTvCollectionName.text = sb.toString()
         holder.binding.searchListItemPlayButton.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
