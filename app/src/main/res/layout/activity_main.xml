@@ -34,10 +34,10 @@
         <ProgressBar
             android:indeterminate="true"
             android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/grayColor"
+            android:indeterminateTint="@color/textColor"
             android:id="@+id/activityMain_pbProgress"
-            android:layout_width="124dp"
-            android:layout_height="124dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:progress="60" />
     </LinearLayout>
 
