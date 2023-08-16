@@ -13,6 +13,7 @@ import com.example.movieapp.adapter.ContentCategoryAdapter
 import com.example.movieapp.adapter.ContentSuggestionsAdapter
 import com.example.movieapp.adapter.SearchAdapter
 import com.example.movieapp.core.MainActivity
+import com.example.movieapp.data.ContentResultModel
 import com.example.movieapp.databinding.FragmentSearchBinding
 import com.example.movieapp.extension.extractUniqueGenreNames
 import com.example.movieapp.extension.getURLEncoded
@@ -72,15 +73,17 @@ class SearchFragment : Fragment() {
 
                 searchAdapter = SearchAdapter(it.results, onReplayClick = {
                     musicPlayer.replayMusic()
-                })
-                { clickedItem, position ->
-                    if (musicPlayer.isPlaying()) {
-                        musicPlayer.pauseMusic()
-                    } else {
-                        musicPlayer.playMusic(clickedItem.previewUrl)
+                }, object : SearchAdapter.SearchAdapterListener {
+                    override fun onPlay(contentResultModel: ContentResultModel) {
+                        musicPlayer.playMusic(contentResultModel.previewUrl)
                     }
-                    searchAdapter.notifyItemChanged(position)
-                }
+
+                    override fun onPause() {
+                        musicPlayer.pauseMusic()
+                    }
+
+                })
+
                 searchAdapter.setHasStableIds(true)
                 binding.fragmentSearchRvSearch.isVisible = true
                 binding.fragmentSearchRvSearch.adapter = searchAdapter

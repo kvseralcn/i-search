@@ -14,11 +14,18 @@ import com.example.movieapp.databinding.SearchListItemBinding
 class SearchAdapter constructor(
     private var searchList: List<ContentResultModel>,
     private val onReplayClick: () -> Unit,
-    private val onItemClick: (ContentResultModel, Int) -> Unit
+    private val searchAdapterListener: SearchAdapterListener
 ) :
     RecyclerView.Adapter<SearchAdapter.PageHolder>() {
 
-    private var isPlaying: Boolean = false
+    interface SearchAdapterListener {
+        fun onPlay(contentResultModel: ContentResultModel)
+        fun onPause()
+    }
+
+    private var playingContentIndex = -1
+    private var prevPlayingContentIndex = -1
+
     private val allItemsList = searchList
 
     class PageHolder(val binding: SearchListItemBinding) :
@@ -51,17 +58,30 @@ class SearchAdapter constructor(
         holder.binding.searchListItemPlayButton.setImageDrawable(
             ContextCompat.getDrawable(
                 context,
-                if (isPlaying) R.drawable.baseline_pause_24 else R.drawable.baseline_play_arrow_24
+                if (position == playingContentIndex) R.drawable.baseline_pause_24 else R.drawable.baseline_play_arrow_24
             )
         )
 
         holder.binding.searchListItemPlayButton.setOnClickListener {
-            isPlaying = !isPlaying
-            onItemClick(contentResult, position)
+            if (position == playingContentIndex) {
+                searchAdapterListener.onPause()
+                notifyItemChanged(playingContentIndex)
+                playingContentIndex = -1
+                prevPlayingContentIndex = -1
+            } else {
+                prevPlayingContentIndex = playingContentIndex
+                playingContentIndex = position
+                searchAdapterListener.onPlay(contentResult)
+                notifyItemChanged(playingContentIndex)
+            }
+
+            if (prevPlayingContentIndex != -1)
+                notifyItemChanged(prevPlayingContentIndex)
         }
 
-        holder.binding.searchListItemReplayButton.alpha = if (isPlaying) 1f else 0.25f
-        holder.binding.searchListItemReplayButton.isEnabled = isPlaying
+        holder.binding.searchListItemReplayButton.alpha =
+            if (position == playingContentIndex) 1f else 0.25f
+        holder.binding.searchListItemReplayButton.isEnabled = position == playingContentIndex
         holder.binding.searchListItemReplayButton.setOnClickListener {
             onReplayClick()
         }
