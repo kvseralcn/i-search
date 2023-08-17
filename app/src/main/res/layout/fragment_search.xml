@@ -8,7 +8,7 @@
     android:background="@color/black"
     tools:context=".ui.search.presentation.SearchFragment">
 
-    <com.example.movieapp.view.searchbar.SearchBar
+    <com.kevser.isearch.view.searchbar.SearchBar
         android:id="@+id/fragmentSearch_sbSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
