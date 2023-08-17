@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.movieapp'
+    namespace 'com.kevser.isearch'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.movieapp"
+        applicationId "com.kevser.isearch"
         minSdk 24
         targetSdk 33
         versionCode 1
