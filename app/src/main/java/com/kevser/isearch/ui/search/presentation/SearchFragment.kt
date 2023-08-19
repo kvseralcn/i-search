@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.kevser.isearch.R
 import com.kevser.isearch.adapter.ContentCategoryAdapter
 import com.kevser.isearch.adapter.ContentSuggestionsAdapter
 import com.kevser.isearch.adapter.SearchAdapter
@@ -38,15 +39,30 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
+        initAdapters()
+        initObservers()
+        return binding.root
+    }
 
-        binding.fragmentSearchRvSearch.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.fragmentSearchRvCategory.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.fragmentSearchRvSuggestions.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    private fun initAdapters() {
+        binding.apply {
+            fragmentSearchRvSearch.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            fragmentSearchRvCategory.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            fragmentSearchRvSuggestions.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            val suggestionsAdapter = ContentSuggestionsAdapter(
+                searchViewModel.suggestionList
+            ) { suggestion ->
+                fragmentSearchSbSearch.setText(suggestion)
+                sendSearchRequest(suggestion)
+            }
+            fragmentSearchRvSuggestions.adapter = suggestionsAdapter
+        }
+    }
 
-
+    private fun initObservers() {
         searchViewModel.data.observe(viewLifecycleOwner) {
             (activity as MainActivity).hideProgress()
 
@@ -57,7 +73,7 @@ class SearchFragment : Fragment() {
                 binding.fragmentSearchTvNotFound.isVisible = false
 
                 val list = mutableListOf<String>()
-                list.add(0, "All")
+                list.add(0, getString(R.string.all))
                 val uniqueGenreNames = it.results.extractUniqueGenreNames()
                 list.addAll(uniqueGenreNames)
 
@@ -92,17 +108,6 @@ class SearchFragment : Fragment() {
             }
             (activity as MainActivity).hideProgress()
         }
-
-        val suggestionsAdapter = ContentSuggestionsAdapter(
-            searchViewModel.suggestionList
-        ) { suggestion ->
-            binding.fragmentSearchSbSearch.setText(suggestion)
-            sendSearchRequest(suggestion)
-        }
-        binding.fragmentSearchRvSuggestions.adapter = suggestionsAdapter
-
-        //TODO empty state component haline getir show fnk nunu 2 overload seklinde yaz birinde string id alacak digeri string alacak
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
