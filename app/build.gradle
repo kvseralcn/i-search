@@ -42,45 +42,48 @@ kapt {
 }
 
 dependencies {
-    implementation 'com.google.android.exoplayer:exoplayer-core:2.19.0'
-    implementation 'com.google.android.exoplayer:exoplayer-ui:2.19.0'
+    //Exoplayer
+    implementation "com.google.android.exoplayer:exoplayer-core:$rootProject.ext.exoplayerVersion"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$rootProject.ext.exoplayerVersion"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation "com.github.bumptech.glide:glide:$rootProject.ext.glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.ext.glideVersion"
 
     //Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1")
-
-    implementation "androidx.activity:activity-ktx:1.7.2"
-    implementation "androidx.fragment:fragment-ktx:1.6.0"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.ext.lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.ext.lifecycleVersion")
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.lifecycleVersion"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$rootProject.ext.lifecycleVersion")
 
     //Coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.coroutinesVersion")
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$rootProject.ext.moshiVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$rootProject.ext.retrofitVersion"
 
     //Okhttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$rootProject.ext.okhttpVersion"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
 
     //Hilt
-    implementation "com.google.dagger:hilt-android:2.44"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation "com.google.dagger:hilt-android:$rootProject.ext.hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$rootProject.ext.hiltVersion"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.6.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.6.0"
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.ext.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.ext.navigationVersion"
 
+    //AndroidX
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation "androidx.activity:activity-ktx:1.7.2"
+    implementation "androidx.fragment:fragment-ktx:1.6.0"
+
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
