@@ -14,7 +14,7 @@ iTunes API client app to search and listen to movies, music, podcasts, and more.
 - [Dependency Injection-Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 - [Retrofit](https://square.github.io/retrofit/)
 - [Moshi](https://github.com/square/retrofit/tree/master/retrofit-converters/moshi)
-- [Livedata](https://developer.android.com/topic/libraries/architecture/livedata)
+- [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 - [KotlinFlows](https://developer.android.com/kotlin/flow)
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel?gclid=Cj0KCQjwmouZBhDSARIsALYcouowU4bI_Dxt9XRlsd4-qAblwn2Vk3jgw86XJFJdhJuraSbTxzGNgwMaAvejEALw_wcB&gclsrc=aw.ds)
 - [ViewBinding](https://developer.android.com/topic/libraries/view-binding)
