@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186486247315",
+    "project_id": "i-search-c6046",
+    "storage_bucket": "i-search-c6046.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186486247315:android:b1d55af2d27a129a6ea266",
+        "android_client_info": {
+          "package_name": "com.kevser.isearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186486247315-u93ffba115ugv7tfedq5vpc8b3n9itps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_PW7VZSeOEaMrTvQbpvNdSh8Ct4cspxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186486247315-u93ffba115ugv7tfedq5vpc8b3n9itps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
